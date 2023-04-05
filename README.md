@@ -141,6 +141,7 @@ Tips:
 ### Setting k
 
 k = 1, all dataset belongs to 1 cluster
+
 k = n, all points form their own cluster
 
 Tips for choosing k:
@@ -151,4 +152,94 @@ Tips for choosing k:
 
 ## Bias and Variance
 
+Bias - Gep between predicted value and actual value
 
+Variance - How scattered the values are with respect to each other
+
+Under-fitting -
+- Model is too simple and inflexible, has not scratched the surface of the underlying patterns
+- High prediction error in both training and test data
+- Low variance + High bias
+- Common Causes:
+  - Model too simple
+  - Insufficient data to be able to cover all possible combinations of features
+  - Data not randomized before split
+
+Over-fitting -
+- Model is overly complex and flexible
+- Low prediction error in training data, but high prediction error in test data
+- High variance + Low bias
+- Common Causes:
+  - Model too complex
+  - Data not randomized before split
+
+Bias / Variance Trade-off -
+- Ideally we want both low variance and low bias, but there is a trade-off
+- As model complexity increases, it moves from `low-variance + high-bias` to `high-variance + low-bias`
+- Both bias and variance contribute to the error, but we want to minimize the error
+- So the optimum solution with the least error over test data, lies somewhere in between
+
+
+## Support Vector Machines (SVM)
+
+Plot a hyperplane dividing the data-points maximizing the margin, i.e. sum of distances of the plane from
+the closest points on either side of the plane (unlike logistic regression where sum of distances from all points
+is minimized). This offers additional support to cope with new data-points that may infringe on the decision boundary
+
+Can be useful for entangling complex relationships and mitigating outliers and anomalies
+
+Hyperparameter `C` -
+- Boundary can be modified by changing the hyperparameter `C`
+- Can regulate the extent to which misclassified cases are ignored
+- Low `C` will result in a wide or soft margin, greater generalization and low penalty for misclassified cases
+- High `C` will result in a narrow or hard margin, high penalty for misclassified cases, susceptible to over-fitting
+- `C = 0` will remove penalty for misclassified cases
+- Any value of `C < 1.0` adds regularization the model
+- Trade-off between `wide-margin + more-mistakes` and `narrow-margin + fewer-mistakes`
+- Optimal `C` can be chosen by trial and error, which can be automated using `grid search`
+
+
+Tips:
+- Powerful with higher-dimension data
+- Variations with Kernel Trick - map from low dimension to high dimension space, allowing the possibility of classifying non-linear data using a linear decision boundary in higher dimensions
+- Sensitive to feature scales, standardization recommended
+- Processing time to train could be a drawback
+- Not recommended for datasets with low feature-to-row ratio due to speed and performance constraints
+
+
+## Artificial Neural Networks (ANN)
+
+Analyzes data through a network of decision layers, where each `layer` consists of multiple interconnected `nodes` with
+adjustable `weights` that fire or do not fire based on a certain criterion.
+
+```
+input     hidden        output
+layer     layer(s)      layer
+
+          O x O
+O    x    O x O    x    O
+O    x    O x O    x    O
+          O x O
+```
+
+
+At each note of the ANN -
+
+```
+output = activation_function( weight * input + bias )
+```
+
+Cost is a measure of difference between model's predicted value and the actual value. The purpose of training is to
+reduce the cost by adjusting weights until the model's predictions closely matches the actual output.
+
+Feed-Forward: Evaluate the network from left to right (input layer to output layer) to arrive at an output
+
+Back-propagation: Using cost to incrementally tweak the network's weights from right to left until the lowest possible
+cost value is achieved.
+
+Black-box: Tracing ANN's decision structure reveals little to no insight about how specific variables influence its
+decision.
+
+When to use an ANN?
+- Problems with large number of input features and complex patterns
+- Problems that are too difficult for computers to solve but are almost trivial to humans
