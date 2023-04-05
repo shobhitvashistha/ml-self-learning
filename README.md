@@ -60,7 +60,7 @@ Plot a hyperplane (a line in case of single variable linear Regression) through 
 residual error = predicted value - actual value
 
 NOTE: This is not equivalent to geometric line fitting in XY plane as you originally thought, as we are only minimizing
-the Y distance and not directly minimizing X distances #TODO
+the Y distance and not directly minimizing X distances
 
 
 ```
@@ -90,7 +90,7 @@ Objective here is for all independent variables to be correlated to the dependen
 
 when we want discrete predictions instead of continuous
 
-sigmoid function is used to transform domain to (0, 1)
+sigmoid function is used to transform domain to (0, 1) `S(x) = 1 / (1 + exp(-x))`
 
 hyperplane in Logistic regression serves as a dividing boundary for classification rather than a trendline predicting values
 
@@ -243,3 +243,32 @@ decision.
 When to use an ANN?
 - Problems with large number of input features and complex patterns
 - Problems that are too difficult for computers to solve but are almost trivial to humans
+
+
+### Perceptron
+
+The most basic form of a feed forward network
+
+- decision function that receives inputs to produce a binary output
+- output of 1 triggers the activation function while 0 does not
+- in case of additional layers, 1 output can be configured to pass the output to next layer
+- example activation function could be `>=0`, i.e. 1 output for non-negative numbers and 0 for negative ones
+- weakness: output is binary, so a small change in weights/biases can produce polarizing results, which makes it difficult to train a model that is accurate with new data
+- Sigmoid neuron - Alternative to perceptron with continuous output between 0-1 achieved by utilizing the sigmoid function `1 / (1 + exp(-x))`
+- Hyperbolic tangent - Another alternative, `tanh(x)` produces output between -1 and 1, so it also outputs negative numbers, unlike sigmoid function
+- Multilayer Perceptron (MLP) - Aggregate of multiple layers of perceptrons into a unified prediction model
+- high number of hyperparameters mean it takes longer to run/train than other shallow models (can generally still be faster than SVM)
+
+
+### Deep learning
+
+A neural network with deep number of layers (at least 5-10). Can be useful in interpreting high number of features and
+breaking down complex patterns into simpler patterns.
+
+
+
+
+
+
+
+
