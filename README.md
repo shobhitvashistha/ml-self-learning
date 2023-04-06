@@ -265,10 +265,40 @@ The most basic form of a feed forward network
 A neural network with deep number of layers (at least 5-10). Can be useful in interpreting high number of features and
 breaking down complex patterns into simpler patterns.
 
+Types:
+- Multilayer Perceptron (MLP)
+- Recurrent Neural Network (RNN)
+- Recursive Neural Tensor Network (RNTN)
+- Deep Belief Network (DBN)
+- Convolutional Neural Network (CNN)
+- etc.
+
+Applications:
+- Text Processing (RNN, RNTN, CNN)
+  - Sentiment analysis
+  - Topic segmentation
+  - Named entity recognition
+- Image Recognition (DBN, CNN)
+- Object recognition (RNTN, CNN)
+- Speech recognition (RNN)
+- Time series analysis (RNN)
+- Classification (DBN, CNN, MLP)
+
+Cons:
+- Huge quantities of data needed (labeled or otherwise)
+- High amount of resources and time needed for training the model
+- Higher (when compared to other techniques) amount of resources and time needed for running the model
+- Black-box - conceals the model's decision structure
+
+
+## Decision Trees
 
 
 
+## Ensemble modeling
 
 
+
+## Model tuning
 
 
