@@ -293,12 +293,95 @@ Cons:
 
 ## Decision Trees
 
+Decision trees start at a root node and is followed by splits that produce branches, branches then link to leaves
+(nodes) that form decision points.
 
+The aim is to keep the tree as small as possible. this is achieved by selecting a variable that optimally splits
+data into homogenous groups, such that it minimizes the level of data entropy at the next branch.
+
+Entropy measures the variance in data among different classes.
+
+```
+Entropy (or information value) = - Σ Pi * log2(Pi)
+
+where,
+
+Pi = probability that a randomly selected item belongs to the i'th class
+```
+
+Tips:
+- susceptible to over-fitting (because of the use of greedy algorithm) esp. for datasets with high pattern variance
+
+### Bagging
+
+Growing multiple decision trees using randomized selection of input data and combining results by averaging the
+output (for regression) or voting (for classification)
+
+Bootstrap sampling - extracting random variation of data each round, in case of bagging, different variations of the
+training data is run through each tree
+
+### Random Forests
+
+Random Forests - Similar to bagging, except we artificially limit the number of variables considered for each split
+
+With bagging the trees often look similar because they use the same variable early in their decision structure in a
+bit to reduce entropy
+
+High number of trees smooth out the potential impact of outliers, with diminishing returns beyond an adequate amount
+
+### Boosting
+
+Developing strong models by combining multiple weak models, achieved by adding weights to the trees based on
+misclassified cases in a previous tree
+
+#### Gradient Boosting 
+
+Rather than selecting combinations of variables at random, we select variables that improve prediction accuracy with
+each new tree. i.e. the trees are grown sequentially
+
+At each iteration weights are added to the training data based on results of the previous iteration, with higher weights
+applied to incorrectly predicted data, this process is repeated until there is a low level of error. The final result is
+then obtained from a weighted average of the total predictions derived from each decision tree.
+
+Notes:
+- While adding more trees to a random forest helps offset over-fitting, the same can cause over-fitting in case of boosting
+- Can lead to mixed results in case of data with high number of outliers, random forests may be preferable to boosting
+- Slow processing speed because trees are trained sequentially, while random forests can be trained in parallel
+- A downside that applies to boosting/bagging/random forests is the loss of clarity
 
 ## Ensemble modeling
 
+Combine multiple algorithms/models to build a unified prediction model
+
+Sequential models - prediction error is reduced by adding weights to classifiers that previously misclassified data
+e.g. Gradient boosting, AdaBoost
+
+Parallel models - prediction error is reduced by averaging e.g. Bagging, Random forests
+
+Homogeneous models - combination of similar kinds of models (like bagging)
+
+Heterogeneous models - combination of different kinds of models
+
+Techniques:
+- Bagging - parallel model averaging using a homogenous ensemble
+- Boosting - homogenous technique reducing error by addressing misclassified cases in previous iteration to produce a sequential model
+- Bucket of models - heterogeneous technique that trains multiple models using the same training data and selects one that performs best on test data
+- Stacking - (usually heterogeneous) runs multiple models simultaneously and combines results to produce final model while adding emphasis to well-performing models
 
 
-## Model tuning
+## Building a model in Python
+
+Steps:
+
+- import dataset
+- scrub dataset
+- split data into training and test data
+- select an algorithm and configure its hyperparameters
+- evaluate the results
+
+[Example](examples/basic.py)
+
+
+## Model optimization
 
 
