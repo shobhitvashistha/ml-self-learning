@@ -384,4 +384,11 @@ Steps:
 
 ## Model optimization
 
+Grid search - training/evaluating model using all combinations a given selection of hyperparameter values to
+determine optimum values for each of the parameters
+
+- It could be helpful to run a relatively coarse grid search first (say using powers of 10), and then run a finer grid search around the best value identified
+- Randomized search can also be utilized to hone in on the optimal hyperparameters
+
+
 
