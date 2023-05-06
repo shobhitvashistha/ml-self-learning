@@ -92,3 +92,34 @@ To detect and fix this issue -
 No Free Lunch Theorem - If we make no assumptions about the data, there is no reason to prefer one over the other,
 the only way to know which will perform better is to evaluate them all, since that is not possible in practice, we make
 some reasonable assumptions about the data
+
+
+## End-to-end ML project
+
+Multiple regression - many features
+Uni-variate regression - one output
+
+### Performance measure
+
+RMSE - root mean squared error (l2 norm)
+MAE - mean absolute error (l1 norm)
+
+- Higher order norms are more sensitive to outliers (large values), while lower order ones are more tolerant
+- For a Gaussian distribution of values RMSE performs very well and is generally preferred
+
+Data snooping bias - seemingly interesting pattern in the test data the leads you to select a particular kind of machine
+learning model, leading to the generalization error being too optimistic
+
+### Train Test split
+
+- Random Sampling - We can shuffle and split the data set that way but that will cause us to have a different split everytime program is run
+  - Fixing the seed would mitigate the issue, but it will still occur whenever new datapoints are added
+- Stable Sampling - One solution is to use id column's hash to split the dataset
+  - If there is no id column, add index column to be able to split the data by its hash
+  - This should give us a stable way to split the data as long as newer data is appended to the end of previous data
+  - If this is not the case then the solution would be to use stable features to construct an id column
+- Stratified Sampling - We need our test data to be representative of the full dataset
+  - so if there is a feature that is important in determination of the estimate, it can be used to split the data
+
+
+    

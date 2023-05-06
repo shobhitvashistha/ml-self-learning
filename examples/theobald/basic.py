@@ -4,12 +4,11 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn import ensemble
 from sklearn.metrics import mean_absolute_error
 
-
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from examples import PROJECT_ROOT, DATA_ROOT
 
 
 def cleaned_data():
-    df = pd.read_csv(os.path.join(PROJECT_ROOT, 'data', 'melbourne-housing-market', 'Melbourne_housing_FULL.csv'))
+    df = pd.read_csv(os.path.join(DATA_ROOT, 'melbourne-housing-market', 'Melbourne_housing_FULL.csv'))
 
     # drop un-needed columns
     to_del = ['Address', 'Method', 'SellerG', 'Date', 'Postcode', 'Lattitude', 'Longtitude', 'Regionname',

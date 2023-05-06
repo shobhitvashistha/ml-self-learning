@@ -1,3 +1,5 @@
 ipython
+numpy
 pandas
 scikit-learn
+matplotlib

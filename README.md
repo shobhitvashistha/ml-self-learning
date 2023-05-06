@@ -379,7 +379,7 @@ Steps:
 - select an algorithm and configure its hyperparameters
 - evaluate the results
 
-[Example](examples/basic.py)
+[Example](examples/theobald/basic.py)
 
 
 ## Model optimization
