@@ -4,7 +4,16 @@ from zlib import crc32
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from pandas.plotting import scatter_matrix
+from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.cluster import KMeans
+from sklearn.compose import ColumnTransformer, make_column_selector
+from sklearn.ensemble import IsolationForest
+from sklearn.impute import SimpleImputer
+from sklearn.metrics.pairwise import rbf_kernel
 from sklearn.model_selection import train_test_split, StratifiedShuffleSplit
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder, FunctionTransformer, StandardScaler
 
 from examples import DATA_ROOT
 
@@ -13,7 +22,7 @@ RANDOM_STATE = 42  # the answer to life universe and everything
 
 
 def load_data():
-    return pd.read_csv(os.path.join(DATA_ROOT, 'housing', 'housing.csv'))
+    return pd.read_csv(os.path.join(DATA_ROOT, '../../../data/housing', 'housing.csv'))
 
 
 def hist(data):
@@ -112,6 +121,93 @@ def get_correlations(data):
     return cor_matrix['median_house_value'].sort_values(ascending=False)
 
 
+def show_scatter_matrix(data):
+    attributes = ['median_house_value', 'median_income', 'total_rooms', 'housing_median_age']
+    scatter_matrix(data[attributes], figsize=(12, 8))
+    plt.show()
+
+
+def show_scatter_plot(data, x, y):
+    data.plot(kind='scatter', x=x, y=y, alpha=0.1, grid=True)
+    plt.show()
+
+
+def add_experimental_features(data):
+    data['rooms_per_house'] = data['total_rooms'] / data['households']
+    data['bedrooms_ratio'] = data['total_bedrooms'] / data['total_rooms']
+    data['people_per_house'] = data['population'] / data['households']
+
+
+def handle_missing_values(data):
+    # we could drop the rows with missing values
+    # data.dropna(subset=["total_bedrooms"], inplace=True)  # option 1
+
+    # we could drop the feature all togather
+    # data.drop("total_bedrooms", axis=1)  # option 2
+
+    # or we could fill the missing values with the median of the feature
+    # median = data["total_bedrooms"].median()  # option 3
+    # data["total_bedrooms"].fillna(median, inplace=True)
+
+    # to display the rows with null values
+    null_rows_idx = data.isnull().any(axis=1)
+    data.loc[null_rows_idx].head()
+
+    # instantiate an imputer
+    imputer = SimpleImputer(strategy="median")
+    # include only numerical types
+    data_num = data.select_dtypes(include=[np.number])
+    # fit data to imputer, this calculates the median values for each feature
+    imputer.fit(data_num)
+
+    print(imputer.statistics_)
+
+    # transform the data, i.e. fill missing values with the median value, this will return a numpy array
+    X = imputer.transform(data_num)
+    # feature names can be obtained by
+    print(imputer.feature_names_in_)
+
+    # we can construct the data frame, by doing this
+    data_tr = pd.DataFrame(X, columns=data_num.columns, index=data_num.index)
+
+    # for scikit-learn >= 1.2
+    # from sklearn import set_config
+    # set_config(transform_output="pandas")
+
+    return data_tr, X, imputer
+
+
+def handle_categorical_features(data):
+    data_cat = data[["ocean_proximity"]]
+    ordinal_encoder = OrdinalEncoder()
+    data_cat_encoded = ordinal_encoder.fit_transform(data_cat)
+
+    print(ordinal_encoder.categories_)
+
+    cat_encoder = OneHotEncoder()
+    data_cat_1hot = cat_encoder.fit_transform(data_cat)  # this is a sparse matrix
+
+    # to get dense array
+    data_cat_1hot = data_cat_1hot.toarray()
+    # or
+    # cat_encoder = OneHotEncoder(sparse=False)
+
+    print(cat_encoder.feature_names_in_)
+    print(cat_encoder.get_feature_names_out())
+
+
+def drop_outliers(X, data):
+    isolation_forest = IsolationForest(random_state=42)
+    outlier_pred = isolation_forest.fit_predict(X)
+
+    print(outlier_pred)
+
+    return data.iloc[outlier_pred == 1]
+    # data_labels = data_labels.iloc[outlier_pred == 1]
+
+
+
+
 def main_stratified():
     data = load_data()
 
@@ -137,5 +233,15 @@ def main_stratified():
     # vis_geographic_data(vis_data)
     # vis_geographic_data_with_prices(vis_data)
 
+    # print(get_correlations(vis_data))
+
+    # show_scatter_matrix(vis_data)
+    # show_scatter_plot(data, x='median_income',  y='median_house_value')
+
+    add_experimental_features(vis_data)
     print(get_correlations(vis_data))
+
+    data_tr, X, imputer = handle_missing_values(vis_data)
+
+    # data_tr = drop_outliers(X, data_tr)
 

@@ -121,5 +121,86 @@ learning model, leading to the generalization error being too optimistic
 - Stratified Sampling - We need our test data to be representative of the full dataset
   - so if there is a feature that is important in determination of the estimate, it can be used to split the data
 
+### Explore and visualize data to gain insights
 
-    
+#### Looking for correlations
+
+Correlation coefficient -
+- used to determine weather or not 2 features are linearly correlated
+- between -1 and 1
+- closer to 1 implies strong positive correlation
+- closer to -1 implies strong negative correlation
+- 0 implies no **linear** correlation
+- note that correlation coefficient can still be zero if there is a non-linear correlation
+
+Scatter Matrix - A matrix of scatter plots among a set of features
+- can reveal correlations between features
+- can reveal weather or not certain features have skewed histograms, and hence need to be rescaled (diagonals are histograms, as scatter plot of feature with itself is always a 45 degree line)
+- can reveal data quirks such as, caps or quantization in data
+
+#### Experiment with attribute combinations
+
+If certain combinations of features provide a better correlation with the intended result it may be useful to include these as features
+
+
+### Clean the data
+
+- Handle missing feature values
+  - Most ML algorithms cannot work with missing features
+  - We can either drop the feature with missing values, or the data points
+  - Imputation: we can also fill in the missing values with mean/median etc.
+  - KNNImputer and Iterative Imputer are more complex options available
+- Handle Outliers
+- Handle categorical features, Ordinal or One-hot encoding
+  - Ordinal encoding has tendency to place unrelated categories near each-other
+  - One hot avoids this issue, but if number of categories is large it can lead to a huge number of features
+
+### Feature scaling and Transformation
+
+- min-max scaling, or normalization
+- standardization, much less effected by outliers
+- the aim is to be able to transform feature is such a way that it's histogram is symmetrical around the mean
+- taking the log of feature can help here
+- bucketization can also be used to achieve this goal
+- for multi-modal distributions (more than one peak)
+
+
+
+
+## Classification
+
+### Confusion matrix
+
+```
+[
+  # predicted negative    # predicted positive
+  
+  [True Negatives,        False Positives]      # actual label negative 
+  [False Negatives,       True Positives ]      # actual label positive
+]
+```
+
+- model prediction on x-axis, negative to positive
+- actual label on the y-axis, negative to positive
+
+Precision - What proportion of all positive predictions are true positives? `TP / (TP + FP)`
+- a model with no FPs but at least one TP has a perfect precision score
+- when it's important for the model to have the least amount of FPs while FNs are tolerated
+- e.g. if a post is safe for kids, there should be no FPs, FNs are ok as posters can appeal the decision for a manual review
+
+Recall - What proportion of positively labeled data are the true positives? `TP / (TP + FN)`
+- a model with no FNs but at least one TP has a perfect recall score
+- when it's important for the model to have the least amount of FNs while FPs are tolerated
+- e.g. cancer detection, there should be no FNs, FPs are ok as we perform detailed testing to confirm
+
+F1 Score - Harmonic Mean of `Precision` and `Recall`
+
+$$
+F_1 = {2 \over {1 \over Precision + 1 \over Recall} }
+$$
+
+```
+                     2
+F1 =  _____________________________
+       1 / Precision +  1 / Recall
+```
