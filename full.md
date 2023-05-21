@@ -196,7 +196,7 @@ Recall - What proportion of positively labeled data are the true positives? `TP 
 F1 Score - Harmonic Mean of `Precision` and `Recall`
 
 ```math
-F_1 = {2 \over Precision^-1 + Recall^-1}
+F_1 = {2 \over \frac{1}{Precision} + \frac{1}{Recall}}
 ```
 
 ```
