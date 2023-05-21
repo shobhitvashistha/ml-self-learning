@@ -175,8 +175,8 @@ If certain combinations of features provide a better correlation with the intend
 [
   # predicted negative    # predicted positive
   
-  [True Negatives,        False Positives]      # actual label negative 
-  [False Negatives,       True Positives ]      # actual label positive
+  [True Negatives (TN),   False Positives (FP)]      # actual label negative 
+  [False Negatives (FN),  True Positives (TP) ]      # actual label positive
 ]
 ```
 
@@ -200,4 +200,13 @@ F_1 = {2 \over \frac{1}{precision} + \frac{1}{recall}}
 ```
 
 ### ROC curve
+
+plots `true positive rate (sensitivity/recall)` against `false positive rate (1 - specificity)`
+
+|                      |                 | Formula          | Description                                                                 |
+|----------------------|-----------------|------------------|-----------------------------------------------------------------------------|
+| True positive rate   | sensitivity     | `TP / (TP + FN)` | What proportion of positively labeled data are the true positives? (recall) |
+| True negative rate   | specificity     | `TN / (TN + FP)` | What proportion of negatively labeled data are the true negatives?          |
+| False positive rate  | 1 - specificity | `FP / (TN + FP)` | What proportion of negatively labeled data are the false positives?         |
+| False negative rate  | 1 - sensitivity | `FN / (TP + FN)` | What proportion of positively labeled data are the false negatives?         |
 
