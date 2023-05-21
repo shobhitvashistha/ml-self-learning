@@ -195,7 +195,7 @@ Recall - What proportion of positively labeled data are the true positives? `TP 
 - High recall is needed when it's important for the model to have the least amount of FNs while FPs are tolerated
 - e.g. cancer detection, there should be no FNs, FPs are ok as further testing can be performed to confirm the results
 
-F1 Score - Harmonic Mean of `precision` and `recall`
+*F<sub>1</sub>* Score - Harmonic Mean of `precision` and `recall`
 
 ```math
 F_1 = {2 \over \frac{1}{precision} + \frac{1}{recall}}
