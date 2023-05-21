@@ -169,7 +169,9 @@ If certain combinations of features provide a better correlation with the intend
 
 ## Classification
 
-### Confusion matrix
+### Binary classification
+
+#### Confusion matrix
 
 ```
 [
@@ -199,14 +201,17 @@ F1 Score - Harmonic Mean of `precision` and `recall`
 F_1 = {2 \over \frac{1}{precision} + \frac{1}{recall}}
 ```
 
-### ROC curve
+#### ROC curve (Receiver Operating Characteristic)
 
-plots `true positive rate (sensitivity/recall)` against `false positive rate (1 - specificity)`
+Plots `true positive rate (sensitivity, or recall)` against `false positive rate (1 - specificity, or fall-out)`
 
-|                      |                 | Formula          | Description                                                                 |
-|----------------------|-----------------|------------------|-----------------------------------------------------------------------------|
-| True positive rate   | sensitivity     | `TP / (TP + FN)` | What proportion of positively labeled data are the true positives? (recall) |
-| True negative rate   | specificity     | `TN / (TN + FP)` | What proportion of negatively labeled data are the true negatives?          |
-| False positive rate  | 1 - specificity | `FP / (TN + FP)` | What proportion of negatively labeled data are the false positives?         |
-| False negative rate  | 1 - sensitivity | `FN / (TP + FN)` | What proportion of positively labeled data are the false negatives?         |
+|                      |                 | Formula          | Description                                                                    |
+|----------------------|-----------------|------------------|--------------------------------------------------------------------------------|
+| True positive rate   | sensitivity     | `TP / (TP + FN)` | What proportion of positively labeled data are the true positives? (recall)    |
+| True negative rate   | specificity     | `TN / (TN + FP)` | What proportion of negatively labeled data are the true negatives?             |
+| False positive rate  | 1 - specificity | `FP / (TN + FP)` | What proportion of negatively labeled data are the false positives? (fall-out) |
+| False negative rate  | 1 - sensitivity | `FN / (TP + FN)` | What proportion of positively labeled data are the false negatives?            |
 
+Area Under the Curve (AUC) -
+- a perfect classifier will have an AUC of 1
+- a random classifier will have an AUC of 0.5
