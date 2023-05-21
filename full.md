@@ -184,23 +184,17 @@ If certain combinations of features provide a better correlation with the intend
 - actual label on the y-axis, negative to positive
 
 Precision - What proportion of all positive predictions are true positives? `TP / (TP + FP)`
-- a model with no FPs but at least one TP has a perfect precision score
-- when it's important for the model to have the least amount of FPs while FNs are tolerated
-- e.g. if a post is safe for kids, there should be no FPs, FNs are ok as posters can appeal the decision for a manual review
+- A model with no FPs but at least one TP has a perfect precision score
+- High precision is needed when it's important for the model to have the least amount of FPs while FNs are tolerated
+- e.g. if a video is safe for kids, there should be no FPs, FNs are ok as posters can appeal the decision for a manual review
 
 Recall - What proportion of positively labeled data are the true positives? `TP / (TP + FN)`
-- a model with no FNs but at least one TP has a perfect recall score
+- A model with no FNs but at least one TP has a perfect recall score
 - when it's important for the model to have the least amount of FNs while FPs are tolerated
-- e.g. cancer detection, there should be no FNs, FPs are ok as we perform detailed testing to confirm
+- e.g. cancer detection, there should be no FNs, FPs are ok as further testing can be performed to confirm the results
 
-F1 Score - Harmonic Mean of `Precision` and `Recall`
+F1 Score - Harmonic Mean of `precision` and `recall`
 
 ```math
-F_1 = {2 \over \frac{1}{Precision} + \frac{1}{Recall}}
-```
-
-```
-                     2
-F1 =  _____________________________
-       1 / Precision +  1 / Recall
+F_1 = {2 \over \frac{1}{precision} + \frac{1}{recall}}
 ```
